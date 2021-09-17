@@ -1,0 +1,33 @@
+{
+  "name": "internship-logbook",
+  "version": "1.0.0",
+  "description": "backend for logbook",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jelmerovereem/internship-logbook.git"
+  },
+  "author": "Jelmer Overeem <jelmer_overeem@hotmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jelmerovereem/internship-logbook/issues"
+  },
+  "homepage": "https://github.com/Jelmerovereem/internship-logbook#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongodb": "^4.1.2",
+    "node-fetch": "^3.0.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
