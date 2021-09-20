@@ -33,9 +33,6 @@ const urlencodedParser = bodyParser.urlencoded({
 	db = client.db(process.env.DB_NAME);
 });
 
-app.get("/", (req, res) => {
-    res.send("hello world");
-})
 
 app.get("/blogs", async (req, res) => {
   const blogs = await db.collection("posts").find().toArray();
