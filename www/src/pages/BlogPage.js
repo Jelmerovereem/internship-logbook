@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { get, put } from "../modules/serverFetches";
 import Fade from "react-reveal/Fade";
 import {Link} from "react-router-dom";
-import {Button, Loading} from "../components/UI";
+import {Button, Loading, ArticleSlider, ArticleCard} from "../components/UI";
 
 const getBlog = async id => {
     const response = await get({url: `/blogPost/${id}`});
@@ -59,18 +59,25 @@ const BlogPage = (props) => {
                 {Object.keys(blogData).length > 0 &&
                     <Fade bottom>
                         <h1>{blogData.blogTitle}</h1>
-                        <p>{blogData.blogContent}</p>
+                        <div dangerouslySetInnerHTML={{__html: blogData.blogContent}}/>
                         <p>Bezoekers: {viewersCount}</p>
                     </Fade>
                 }
                 {allBlogs.length > 0 ?
-                allBlogs.map(blog => {
-                    return (
-                        <Link key={blog.blogTitle} style={{display: "block"}} to={`/blog/${blog._id}`}>
-                            <Button>{blog.blogTitle}</Button>
-                        </Link>
-                    )
-                })
+                <ArticleSlider>
+                    {allBlogs.map(blog => {
+                        return (
+                            <ArticleCard 
+                                href={`/blog/${blog._id}`}
+                                blogData={blog}
+                                key={blog._id}
+                            />
+                            // <Link key={blog.blogTitle} style={{display: "block"}} to={`/blog/${blog._id}`}>
+                            //     <Button>{blog.blogTitle}</Button>
+                            // </Link>
+                        )
+                    })}
+                </ArticleSlider>
                 :""
             }
                 </>

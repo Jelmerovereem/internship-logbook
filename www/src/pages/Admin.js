@@ -47,7 +47,7 @@ const Admin = () => {
                     return (
                         <div key={blog._id}>
                             <h2>{blog.blogTitle}</h2>
-                            <p>{blog.blogContent}</p>
+                            <div dangerouslySetInnerHTML={{__html: blog.blogContent}} />
                             <span onClick={() => removePost(blog._id)}>Remove post</span>
                         </div>
                     )

@@ -1,6 +1,5 @@
 import { useState } from "react";
-import {TextArea, Input, Checkbox} from "../UI";
-import Button from "../UI/Button";
+import {TextArea, Input, Checkbox, Button, Quill} from "../UI";
 import {post} from "../../modules/serverFetches";
 
 const overlayStyle = {
@@ -28,14 +27,16 @@ const PostModal = (props) => {
     const [blogData, updateBlogData] = useState({
         blogTitle: "",
         blogContent: "",
-        publish: true
+        publish: true,
+
     });
+    const [quillFocused, setQuillFocused] = useState(false);
     const handleInputChanges = (fieldId, value) => {
-        //console.log(fieldId, value)
         updateBlogData({...blogData, [fieldId]: value})
     }
 
     const postBlog = () => {
+        blogData.date = new Date();
         console.log(blogData)
         post({url: "/blog", body: blogData}).then((res) => {
             console.log(res)
@@ -50,13 +51,29 @@ const PostModal = (props) => {
         })
     }
 
+    const quillStyle = {
+        border: "1px solid lightgrey",
+        transition: "border 0.5s"
+    }
+
+    quillFocused ? quillStyle.border = "1px solid blue" : quillStyle.border = "1px solid lightgrey"
+    console.log(quillFocused)
+
     return (
         <div style={overlayStyle} onClick={onClose}>
             <div style={modalStyle} onClick={(event) => event.stopPropagation()}>
                 <span onClick={onClose} style={{cursor: "pointer"}} >Close</span>
                 <h3>Create your new post</h3>
                 <Input label="Blog title" id="blogTitle" onChange={handleInputChanges} value={blogData['blogTitle']} />
-                <TextArea label="Blog content" id="blogContent" onChange={handleInputChanges} value={blogData['blogContent']} />
+                {/* <TextArea label="Blog content" id="blogContent" onChange={handleInputChanges} value={blogData['blogContent']} /> */}
+                <Quill
+                    style={quillStyle}
+                    id="blogContent"
+                    onChange={handleInputChanges}
+                    value={blogData['blogContent']}
+                    onFocus={() => setQuillFocused(true)}
+                    onBlur={() => setQuillFocused(false)}
+                />
                 <Checkbox label="Publish" id="publish" checked={true} onChange={handleInputChanges} value={blogData['publish']}  />
                 <Button onClick={postBlog} >Save</Button>
             </div>
