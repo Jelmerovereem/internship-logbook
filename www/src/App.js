@@ -1,11 +1,25 @@
 import './App.css';
-
-import Button from "./components/Button/Button.js"
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+import Home from "./pages/Home";
+import Admin from "./pages/Admin";
 
 function App() {
   return (
     <div className="App">
-      <Button />
+      <Router>
+        <Switch>
+            <Route path="/admin">
+              <Admin />
+            </Route>
+            <Route path="/">
+                <Home />
+            </Route>
+        </Switch>
+        </Router>
     </div>
   );
 }

@@ -1,0 +1,23 @@
+{
+  "name": "internship-logbook",
+  "version": "1.0.0",
+  "description": "This is my logbook for documenting my process at my internship at code d'azur.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku-postbuild": "npm run buildapp && npm run installserver",
+    "buildapp": "cd ./www && npm install && npm run build",
+    "installserver": "cd ./server && npm install",
+    "start": "cd ./server && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jelmerovereem/internship-logbook.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jelmerovereem/internship-logbook/issues"
+  },
+  "homepage": "https://github.com/Jelmerovereem/internship-logbook#readme"
+}
