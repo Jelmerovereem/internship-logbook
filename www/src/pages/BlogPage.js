@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import {Button, Loading} from "../components/UI";
 
 const getBlog = async id => {
-    const response = await get({url: `/blog/${id}`});
+    const response = await get({url: `/blogPost/${id}`});
     return response;
 }
 
@@ -46,6 +46,7 @@ const BlogPage = (props) => {
             const filteredBlogs = res.blogs.filter(b => b._id !== id);
             setAllBlogs([...allBlogs, ...filteredBlogs ])
         })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

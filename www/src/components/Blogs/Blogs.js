@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { get } from "../../modules/serverFetches";
 import Fade from "react-reveal/Fade";
-import Pulse from "react-reveal/Pulse";
 import { Link } from 'react-router-dom';
 import { Loading } from '../UI';
 

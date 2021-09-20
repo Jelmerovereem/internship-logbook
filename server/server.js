@@ -41,7 +41,7 @@ app.get("/blogs", async (req, res) => {
   res.send({status: 200, blogs})
 })
 
-app.get("/blog/:id", async (req, res) => {
+app.get("/blogPost/:id", async (req, res) => {
   console.log(req.params)
   const {id} = req.params;
 
