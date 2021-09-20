@@ -1,6 +1,8 @@
-import express from "express";
+import express, {json, urlencoded} from "express";
 import cors from "cors";
 import path from "path";
+import {dirname} from "path";
+import { fileURLToPath } from 'url';
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -9,35 +11,30 @@ import {default as mongo} from "mongodb";
 const ObjectId = mongo.ObjectId;
 
 import { v4 as uuidv4 } from "uuid";
-
-import bodyParser from "body-parser";
-const urlencodedParser = bodyParser.urlencoded({
-    extended: true
-  });
   
-  export const app = express();
-  
-  const port = process.env.PORT || "3001";
+export const app = express();
 
-  app.set("port", port);
-  app.use(bodyParser.urlencoded({extended: true}));
-  app.use(bodyParser.json());
-  app.use(express.static(path.join("..", "www", "build")));
-  app.use(cors({origin:process.env.FRONT_END_HOST,credentials: true}));
+const port = process.env.PORT || "3001";
 
-  const url = process.env.DB_HOST + ':' + process.env.DB_PORT;
+app.set("port", port);
+app.use(json())
+app.use(urlencoded({ extended: false }))
+app.use(express.static(path.join("..", "www", "build")));
+app.use(cors({origin:process.env.FRONT_END_HOST,credentials: true}));
 
-  export let db;
+const url = process.env.DB_HOST + ':' + process.env.DB_PORT;
 
-  mongo.MongoClient.connect(url, (err, client) => {
-	if (err) {
-		console.log("Error, database connection failed");
-	} else {
-		console.log("database connection succeeded");
-	}
-	db = client.db(process.env.DB_NAME);
+export let db;
+console.log('connecting to database...')
+mongo.MongoClient.connect(url, (err, client) => {
+if (err) {
+  console.log(err)
+  console.log("Error, database connection failed");
+} else {
+  console.log("database connection succeeded");
+}
+db = client.db(process.env.DB_NAME);
 });
-
 
 app.get("/blogs", async (req, res) => {
   const blogs = await db.collection("posts").find().toArray();
@@ -71,7 +68,8 @@ app.delete("/blog", async (req, res) => {
 })
 
 app.get("/*", (req, res) => {
-  res.sendFile(path.join("..", "www", "build", "index.html"))
+  res.sendFile("index.html", {root: path.join(dirname(fileURLToPath(import.meta.url)), "/../www/build")})
 })
+
 
 app.listen(process.env.PORT || port, () => console.log(`server is running on port ${port}`));
