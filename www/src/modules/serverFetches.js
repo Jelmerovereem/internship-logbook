@@ -15,6 +15,18 @@ const get = async ({url}) => {
 	return response.json()
 }
 
+const put = async ({url, body}) => {
+	const response = await fetch(`${process.env.REACT_APP_SERVER_ENDPOINT}${url}`, {
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify(body)
+	});
+
+	return response.json()
+}
+
 const deleteReq = async ({url, body}) => {
 	const response = await fetch(`${process.env.REACT_APP_SERVER_ENDPOINT}${url}`, {
 		method: "DELETE",
@@ -29,4 +41,4 @@ const deleteReq = async ({url, body}) => {
 
 
 
-export { get, post, deleteReq };
+export { get, post, put, deleteReq };

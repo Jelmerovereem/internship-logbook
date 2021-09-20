@@ -41,8 +41,30 @@ app.get("/blogs", async (req, res) => {
   res.send({status: 200, blogs})
 })
 
+app.get("/blog/:id", async (req, res) => {
+  console.log(req.params)
+  const {id} = req.params;
+
+  const blogData = await db.collection("posts").findOne({"_id": ObjectId(id)});
+  console.log(blogData)
+  res.send({status: 200, blogData})
+})
+
+app.put("/blog/:id", async (req, res) => {
+  const {id} = req.params;
+  const {viewersCount} = req.body;
+
+  const blogData = await db.collection("posts").findOneAndUpdate({"_id": ObjectId(id)}, {$set: {viewersCount: viewersCount}});
+
+  if (blogData) {
+    console.log(blogData)
+    res.send({status: 200})
+  }
+})
+
 app.post("/blog", async (req, res) => {
   console.log(`Blogdata`, req.body);
+  req.body.viewersCount = 0;
 
   const post = await db.collection("posts").insertOne(req.body);
 

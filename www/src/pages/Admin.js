@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import H1 from "../components/Headings/H1";
 import {Link} from "react-router-dom";
-import Button from "../components/Button/Button";
+import {Button} from "../components/UI";
 import PostModal from "../components/PostModal/PostModal";
 import { get, deleteReq } from "../modules/serverFetches";
 
@@ -25,7 +25,6 @@ const Admin = () => {
     }
 
     const removePost = async (postId) => {
-        console.log(postId)
         const response = await deleteReq({url: "/blog", body: {postId}});
         setBlogs(blogs.filter(b => b._id !== postId))
         return response;

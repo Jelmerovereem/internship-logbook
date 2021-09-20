@@ -1,6 +1,6 @@
 import { useState } from "react";
 import {TextArea, Input, Checkbox} from "../UI";
-import Button from "../Button/Button";
+import Button from "../UI/Button";
 import {post} from "../../modules/serverFetches";
 
 const overlayStyle = {
