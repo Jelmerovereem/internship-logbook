@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import path from "path";
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -18,6 +19,7 @@ const urlencodedParser = bodyParser.urlencoded({
   
   app.use(bodyParser.urlencoded({extended: true}));
   app.use(bodyParser.json());
+  app.use(express.static(path.join("..", "www", "dist")));
   app.use(cors({origin:process.env.FRONT_END_HOST,credentials: true}));
 
   const url = process.env.DB_HOST + ':' + process.env.DB_PORT;
