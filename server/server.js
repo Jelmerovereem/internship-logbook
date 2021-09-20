@@ -17,6 +17,9 @@ const urlencodedParser = bodyParser.urlencoded({
   
   export const app = express();
   
+  const port = process.env.PORT || "3000";
+
+  app.set("port", port);
   app.use(bodyParser.urlencoded({extended: true}));
   app.use(bodyParser.json());
   app.use(express.static(path.join("..", "www", "dist")));
@@ -67,4 +70,4 @@ app.delete("/blog", async (req, res) => {
   }
 })
 
-app.listen(process.env.PORT || 4000, () => console.log("server is running on port 4000"));
+app.listen(process.env.PORT || port, () => console.log(`server is running on port ${port}`));
