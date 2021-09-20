@@ -17,12 +17,12 @@ const urlencodedParser = bodyParser.urlencoded({
   
   export const app = express();
   
-  const port = process.env.PORT || "3000";
+  const port = process.env.PORT || "3001";
 
   app.set("port", port);
   app.use(bodyParser.urlencoded({extended: true}));
   app.use(bodyParser.json());
-  app.use(express.static(path.join("..", "www", "dist")));
+  app.use(express.static(path.join("..", "www", "build")));
   app.use(cors({origin:process.env.FRONT_END_HOST,credentials: true}));
 
   const url = process.env.DB_HOST + ':' + process.env.DB_PORT;
@@ -68,6 +68,10 @@ app.delete("/blog", async (req, res) => {
   } else {
     res.send({status: 400})
   }
+})
+
+app.get("/*", (req, res) => {
+  res.sendFile(path.join("..", "www", "build", "index.html"))
 })
 
 app.listen(process.env.PORT || port, () => console.log(`server is running on port ${port}`));
