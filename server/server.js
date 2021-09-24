@@ -43,18 +43,25 @@ app.get("/blogs", async (req, res) => {
 app.get("/blogPost/:id", async (req, res) => {
   const {id} = req.params;
 
-  const blogData = await db.collection("posts").findOne({"_id": ObjectId(id)});
-
-  res.send({status: 200, blogData})
+  try {
+    const blogData = await db.collection("posts").findOne({"_id": ObjectId(id)});
+    if (blogData) {
+      res.send({status: 200, blogData})
+    }
+  } catch(e) {
+    res.send({status: 404})
+  }
 })
 
 app.put("/blog/:id", async (req, res) => {
   const {id} = req.params;
-  const {viewersCount} = req.body;
+  const {blogData} = req.body;
 
-  const blogData = await db.collection("posts").findOneAndUpdate({"_id": ObjectId(id)}, {$set: {viewersCount: viewersCount}});
+  delete blogData._id;
 
-  if (blogData) {
+  const resBlogData = await db.collection("posts").replaceOne({"_id": ObjectId(id)}, blogData);
+
+  if (resBlogData) {
     res.send({status: 200})
   }
 })

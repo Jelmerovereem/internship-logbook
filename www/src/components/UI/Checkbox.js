@@ -1,9 +1,8 @@
 import { useState } from "react";
 
 const checkboxStyle = {
-    display: "block",
     padding: "5px 0 5px 3px",
-    margin: "5px auto 0"
+    marginLeft: "5px"
 }
 
 const Checkbox = (props) => {
@@ -17,7 +16,7 @@ const Checkbox = (props) => {
     }
 
     return (
-        <>
+        <div style={{marginBottom: "10px"}}>
             {label &&
                 <label htmlFor={id ? id : ""} >{label}</label>
             }
@@ -28,7 +27,7 @@ const Checkbox = (props) => {
                 onChange={toggleCheckbox}
                 style={checkboxStyle}
             />
-        </>
+        </div>
     )
 }
 

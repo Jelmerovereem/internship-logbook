@@ -1,5 +1,17 @@
+:root {
+  --primaryBlue: rgba(38 93 198, 1);
+  --primaryBlueSplitted: 38, 93, 198;
+}
+
+#tsparticles {
+  position: fixed;
+  z-index: 0;
+  height: 70vh;
+}
+
 .App {
   text-align: center;
+  background: white;
 }
 
 .App-logo {

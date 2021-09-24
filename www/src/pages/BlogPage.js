@@ -1,91 +1,101 @@
 import { useEffect, useState } from "react";
-import { get, put } from "../modules/serverFetches";
-import Fade from "react-reveal/Fade";
-import {Link} from "react-router-dom";
-import {Button, Loading, ArticleSlider, ArticleCard} from "../components/UI";
+import { get } from "../modules/serverFetches";
+import { Link } from "react-router-dom";
+import {
+  Loading,
+  ArticleSlider,
+  ArticleCard,
+  BlogHeader,
+  MetaData,
+} from "../components/UI";
+import { BlogContent } from "../components/UI";
+import { useHistory } from "react-router";
 
-const getBlog = async id => {
-    const response = await get({url: `/blogPost/${id}`});
-    return response;
-}
+const getBlog = async (id) => {
+  const response = await get({ url: `/blogPost/${id}` });
+  console.log(response)
+  return response;
+};
 
 const getAllBlogs = async () => {
-    const response = await get({url: "/blogs"});
-    return response;
-}
-
-const updateCount = async (id, viewersCount) => {
-    const response = await put({url: `/blog/${id}`, body: {viewersCount: viewersCount+1 }});
-    return response;
-}
+  const response = await get({ url: "/blogs" });
+  return response;
+};
 
 const BlogPage = (props) => {
-    const [blogData, setBlogData] = useState({
-        blogTitle: "",
-        blogContent: "",
-        publish: true,
-        viewersCount: 0
+  let history = useHistory();
+  const [blogData, setBlogData] = useState({
+    blogTitle: "",
+    blogContent: "",
+    publish: true,
+    viewersCount: 0,
+    headerImage: "",
+  });
+  const [blogLoaded, setBlogLoaded] = useState(false);
+  const [allBlogs, setAllBlogs] = useState([]);
+  const {
+    match: {
+      params: { id },
+    },
+  } = props;
+  //const {id} = props;
+
+  useEffect(() => {
+    getBlog(id).then((res) => {
+      if (res.status === 200) {
+        setBlogData(res.blogData);
+        setBlogLoaded(true);
+      } else {
+        history.push("/404");
+      }
     });
-    const [blogLoaded, setBlogLoaded] = useState(false);
-    const [allBlogs, setAllBlogs] = useState([]);
-    const [viewersCount, setViewersCount] = useState(0);
-    const { match: {params: {id}} } = props;
-    //const {id} = props;
 
-    useEffect(() => {
-        getBlog(id).then((res) => {
-            setBlogData(res.blogData);
-            setBlogLoaded(true);
-
-            updateCount(id, res.blogData.viewersCount).then(response => {
-                setViewersCount(res.blogData.viewersCount + 1)
-            })
-        })
-
-        getAllBlogs().then(res => {
-            const filteredBlogs = res.blogs.filter(b => b._id !== id);
-            setAllBlogs([...allBlogs, ...filteredBlogs ])
-        })
+    getAllBlogs().then((res) => {
+      const filteredBlogs = res.blogs.filter((b) => b._id !== id);
+      setAllBlogs(filteredBlogs);
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+  }, []);
 
-    return (
+  return (
+    <>
+      <Link to="/">Home</Link>
+      <p>Blog id: {id}</p>
+      {blogLoaded ? (
         <>
-            <Link to="/" >Home</Link>
-            <p>Blog id: {id}</p>
-            {blogLoaded
-                ?
-                <>
-                {Object.keys(blogData).length > 0 &&
-                    <Fade bottom>
-                        <h1>{blogData.blogTitle}</h1>
-                        <div dangerouslySetInnerHTML={{__html: blogData.blogContent}}/>
-                        <p>Bezoekers: {viewersCount}</p>
-                    </Fade>
-                }
-                {allBlogs.length > 0 ?
-                <ArticleSlider>
-                    {allBlogs.map(blog => {
-                        return (
-                            <ArticleCard 
-                                href={`/blog/${blog._id}`}
-                                blogData={blog}
-                                key={blog._id}
-                            />
-                            // <Link key={blog.blogTitle} style={{display: "block"}} to={`/blog/${blog._id}`}>
-                            //     <Button>{blog.blogTitle}</Button>
-                            // </Link>
-                        )
-                    })}
-                </ArticleSlider>
-                :""
-            }
-                </>
-                :
-                <Loading />
-            }
+          {Object.keys(blogData).length > 0 && (
+            <>
+              {blogData.headerImage ? <BlogHeader blogData={blogData} /> : ""}
+              <MetaData
+                blog={blogData}
+                date={blogData.date}
+                blogId={blogData._id}
+                viewersCount={blogData.viewersCount}
+              />
+              <BlogContent blogContent={blogData.blogContent} />
+            </>
+          )}
+          {allBlogs.length > 0 ? (
+            <ArticleSlider>
+              {allBlogs.map((blog) => {
+                return (
+                  <ArticleCard
+                    href={`/blog/${blog._id}`}
+                    blogData={blog}
+                    key={blog._id}
+                  />
+                );
+              })}
+            </ArticleSlider>
+          ) : (
+            ""
+          )}
         </>
-    )
-}
+      ) : (
+        <Loading />
+      )}
+    </>
+  );
+};
 
 export default BlogPage;

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Colors } from "./Colors";
 
 const Dropdown = (props) => {
     const {label, id, children, onChange} = props;
@@ -12,10 +13,11 @@ const Dropdown = (props) => {
         outline: "none",
         borderColor: "lightgrey",
         transition: "border-color 0.3s",
-        cursor: "pointer"
+        cursor: "pointer",
+        marginTop: "10px"
     }
 
-    isFocused ? dropdownStyle.borderColor = "blue" : isHovered ? dropdownStyle.borderColor = "blue" : dropdownStyle.borderColor = "lightgrey"
+    isFocused ? dropdownStyle.borderColor = Colors.primaryBlue : isHovered ? dropdownStyle.borderColor = Colors.primaryBlue : dropdownStyle.borderColor = "lightgrey"
 
     return (
         <>

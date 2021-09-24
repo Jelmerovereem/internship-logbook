@@ -13,12 +13,15 @@ const linkStyle = {
 
 const ArticleCard = (props) => {
     const {href, blogData} = props;
+    const { headerImage } = blogData;
     const [isHovered, setIsHovered] = useState(false);
 
     const cardStyle = {
         width: "300px",
         height: "500px",
-        background: "linear-gradient(180deg, rgba(90,133,255,1) 0%, rgba(153,179,255,1) 100%)",
+        background: `linear-gradient(180deg, rgba(90,133,255,0.6) 0%, rgba(153,179,255,0.6) 100%), url(${headerImage})`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
         color: "white",
         margin: "0 50px",
         borderRadius: "10px",

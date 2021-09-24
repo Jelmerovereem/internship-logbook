@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import uploadFile from "../../modules/uploadFile";
 
 const inputStyle = {
     display: "block",
@@ -7,13 +8,26 @@ const inputStyle = {
 }
 
 const Input = (props) => {
-    const {label, id, onChange} = props;
-    const [inputValue, setInputValue] = useState('');
-    const handleChange = event => {
-        const title = event.target.value;
-        setInputValue(title)
-        onChange(id, title);
+    const {label, id, onChange, type="text", accept, value} = props;
+    const [inputValue, setInputValue] = useState(value);
+    const [fileValue, setFileValue] = useState(value);
+    const handleChangeDefault = event => {
+        const value = event.target.value;
+        setInputValue(value);
+        onChange(id, value);
     }
+
+    const handleChangeFile = async event => {
+        const file = event.target.files[0];
+        setFileValue(event.target.value);
+        const uploadedFile = await uploadFile(file);
+        console.log('uploaded file', uploadedFile)
+        onChange(id, uploadedFile.secure_url);
+    }
+
+    useEffect(() => {
+        setInputValue(value)
+    }, [value])
 
     return (
         <>
@@ -23,8 +37,10 @@ const Input = (props) => {
             <input
                 id={id}
                 style={inputStyle}
-                onChange={handleChange}
-                value={inputValue}
+                onChange={type === "file" ? handleChangeFile  : handleChangeDefault}
+                value={type === "file" ? fileValue : inputValue}
+                type={type}
+                accept={accept}
             />
         </>
     )

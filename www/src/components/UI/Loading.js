@@ -1,12 +1,13 @@
 import "../../styles/animations.css";
+import { Colors } from "./Colors.js";
 
 const pulseStyle = {
-    background: "rgba(52, 172, 224, 1)",
+    background: Colors.primaryBlue,
     width: "50px",
     height: "50px",
     margin: "auto",
     borderRadius: "50%",
-    boxShadow: "0 0 0 0 rgba(52, 172, 224, 1)",
+    boxShadow: `0 0 0 0 ${Colors.primaryBlueRGBA}`,
     transform: "scale(1)",
 }
 

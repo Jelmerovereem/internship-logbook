@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { Colors } from "./Colors";
+import { Loading } from ".";
 
 export default function Button(props) {
     const [isHovered, setIsHovered] = useState(false);
-    const {onClick, children} = props;
+    const {onClick, children, loading} = props;
 
     const buttonStyle = {
         background: 'none',
@@ -18,7 +20,7 @@ export default function Button(props) {
         setIsHovered(!isHovered);
     }
 
-    isHovered ? buttonStyle.borderColor = "blue" : buttonStyle.borderColor = "";
+    isHovered ? buttonStyle.borderColor = Colors.primaryBlue : buttonStyle.borderColor = "";
 
     return (
         <button
@@ -27,7 +29,7 @@ export default function Button(props) {
             onMouseEnter={toggleHover}
             onMouseLeave={toggleHover}
         >
-            {children}
+            {loading ? <Loading /> : children}
         </button>
     )
 }

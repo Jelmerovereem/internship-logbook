@@ -5,16 +5,47 @@
 @keyframes pulse {
     0% {
         transform: scale(0.95);
-        box-shadow: 0 0 0 0 rgba(52, 172, 224, 0.7);
+        box-shadow: 0 0 0 0 rgba(var(--primaryBlue), 1);
     }
       
     70% {
         transform: scale(1);
-        box-shadow: 0 0 0 10px rgba(52, 172, 224, 0);
+        box-shadow: 0 0 0 10px rgba(var(--primaryBlue), 0);
     }
       
     100% {
         transform: scale(0.95);
-        box-shadow: 0 0 0 0 rgba(52, 172, 224, 0);
+        box-shadow: 0 0 0 0 rgba(var(--primaryBlue), 0);
+    }
+}
+
+.fade-up {
+    animation: fade-up 5s forwards;
+}
+
+@keyframes fade-up {
+    0% {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+
+    40% {
+        transform: translateY(-50px);
+    }
+
+    100% {
+        transform: translateY(-30px);
+        opacity: 1;
+        
+    }
+}
+
+@keyframes slide-right {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(100vw);
     }
 }
