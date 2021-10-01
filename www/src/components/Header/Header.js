@@ -1,45 +1,135 @@
-import H1 from "../Headings/H1";
 import "../../styles/animations.css";
 import Particles from "react-tsparticles";
 import { Colors } from "../UI/Colors";
+import styled from "styled-components";
+import Logo from "../../assets/logo.js";
 
-const headerStyle = {
-  //backgroundImage: "url('https://images.unsplash.com/photo-1628112602161-b635c8a21378?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2000&q=80')",
-  backgroundColor: "#265dc6",
-  minHeight: "70vh",
-  backgroundAttachment: "fixed",
-  backgroundPosition: "center center",
-  backgroundRepeat: "no-repeat",
-  backgroundSize: "cover",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  color: "white",
-  fontSize: "36px",
-  position: "relative",
-  zIndex: 0,
-};
+const Header = styled.header`
+  /*backgroundImage: url('https://images.unsplash.com/photo-1628112602161-b635c8a21378?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2000&q=80');*/
+  //background-color: #265dc6;
+  background-color: white;
+  //min-height: 100vh;
+  //height: fit-content;
+  width: 100%;
+  padding-bottom: 55%;
+  background-attachment: fixed;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
+  position: relative;
+  z-index: 0;
+`;
 
-const headingStyle = {
-  position: "fixed",
-  zIndex: 2,
-};
 
-const particlesInit = (main) => {
-  console.log(main);
-};
+const PContainer = styled.p`
+  margin: 0;
+  display: inline-block;
+  position: fixed;
+  top: 0;
+  right: 0;
+  text-align: right;
+  font-weight: bolder;
+  line-height: 0.8;
+  font-size: 21vw;
+  text-transform: uppercase;
+  color: ${Colors.primaryDark};
 
-const particlesLoaded = (container) => {
-  console.log(container);
-};
+  div {
+    position: relative;
+    right: 50%;
+    animation: slide-right 1s 1.2s ease both,
+      text-clip 1s 0s cubic-bezier(0.5, 0, 0.1, 1) both;
 
-const Header = () => {
+    img {
+      width: 17%;
+      height: auto;
+    }
+  }
+
+  div:nth-last-child(-n + 2) {
+    color: ${Colors.codeLightBlue};
+  }
+`;
+
+const CodeAndLogoContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`
+
+const LogoContainer = styled.div`
+  display: inline-block;
+  width: 16%;
+
+  &:hover {
+    path:nth-child(4) {
+      opacity: 1;
+      animation: text-clip 1s;
+    }
+    &:after {
+      transform: scale(1);
+    }
+  }
+
+  &:after {
+    display: none;
+    transition: all .5s;
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    // width: 43%;
+    // height: 32%;
+    width: 65px;
+    height: 65px;
+    top: 14%;
+    right: 3%;
+    background: red;
+    //transform: scale(.1);
+}
+`;
+
+const HeaderEl = () => {
   return (
     <>
-      <header style={headerStyle}>
-        <H1 style={headingStyle} classNames="fade-up">
-          Jelmer's internship blog
-        </H1>
+      <Header>
+        {/* <Title>
+          <CafeInner>Intern</CafeInner>
+          <MozartInner>code d'azur</MozartInner>
+        </Title> */}
+        <PContainer>
+          <div>Intern</div>
+          <CodeAndLogoContainer>
+            <LogoContainer>
+              <Logo />
+            </LogoContainer>
+            code
+          </CodeAndLogoContainer>
+          <div>d'azur</div>
+        </PContainer>
+        {/* <SVG width="100%" height="100%">
+          <defs>
+            <style>
+              @import url("https://fonts.googleapis.com/css?
+              family=Lora:400,400i,700,700i");
+            </style>
+          </defs>
+          <text x="39%" y="60%" text-anchor="right">
+            code
+          </text>
+          <text x="19%" y="90%" text-anchor="right">
+            d'azur
+          </text>
+        </SVG> */}
+        {/* <HeaderHeading className="">
+          Internship
+          <br />
+          <img src={logo} alt="company logo" />
+          at
+          <br />
+          <BrandSpan>code d'azur</BrandSpan>
+        </HeaderHeading> */}
         {/* <Particles
           id="tsparticles"
           init={particlesInit}
@@ -47,7 +137,7 @@ const Header = () => {
           options={{
             background: {
               color: {
-                value: Colors.primaryBlue,
+                value: "#fff",
               },
             },
             fpsLimit: 30,
@@ -82,12 +172,12 @@ const Header = () => {
             },
             particles: {
               color: {
-                value: "#ffffff",
+                value: "#000",
               },
               links: {
-                color: "#ffffff",
+                color: "#000",
                 distance: 150,
-                enable: true,
+                enable: false,
                 opacity: 0.5,
                 width: 1,
               },
@@ -123,9 +213,9 @@ const Header = () => {
             detectRetina: true,
           }}
         /> */}
-      </header>
+      </Header>
     </>
   );
 };
 
-export default Header;
+export default HeaderEl;

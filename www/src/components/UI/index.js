@@ -10,6 +10,10 @@ import Quill from "./Quill.js";
 import BlogHeader from "./BlogHeader/BlogHeader.js";
 import MetaData from "./MetaData/MetaData.js";
 import BlogContent from "./BlogContent/BlogContent.js";
+import { TitleQoute } from "./TitleQoute.js";
+import { Colors } from "./Colors.js";
+import LargeImageBlockEl from "./LargeImageBlock.js";
+import AbsoluteTitle from "./AbsoluteTitle.js";
 
 export {
     Input,
@@ -24,4 +28,8 @@ export {
     BlogHeader,
     MetaData,
     BlogContent,
+    TitleQoute,
+    Colors,
+    LargeImageBlockEl,
+    AbsoluteTitle,
 }
