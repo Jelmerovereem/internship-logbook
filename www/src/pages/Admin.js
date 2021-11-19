@@ -5,11 +5,16 @@ import { Button } from "../components/UI";
 import PostModal from "../components/PostModal/PostModal";
 import { get, deleteReq } from "../modules/serverFetches";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
+import styled from "styled-components";
 
 const BlogsData = async () => {
   const response = await get({ url: "/blogs" });
   return response;
 };
+
+const PageWrapper = styled.div`
+  text-align: center;
+`
 
 const Admin = () => {
   const [showPostModal, setShowPostModal] = useState(false);
@@ -32,7 +37,7 @@ const Admin = () => {
   };
 
   return (
-    <div>
+    <PageWrapper>
       <Link to="/">Back to home</Link>
       <H1>Welcome to the admin dashboard</H1>
       {showPostModal && (
@@ -65,7 +70,7 @@ const Admin = () => {
           <Button onClick={() => setShowPostModal(true)}>Add post</Button>
         </>
       )}
-    </div>
+    </PageWrapper>
   );
 };
 export default Admin;

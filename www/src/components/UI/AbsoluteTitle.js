@@ -17,7 +17,7 @@ const AbsoluteTitle = styled.span`
 
     &.fadeIn {
         opacity: 1;
-        top: 59.5%;
+        top: 56.5%;
         //transform: translate(-25%, -100px);
     }
 `

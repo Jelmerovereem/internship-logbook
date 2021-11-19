@@ -10,11 +10,11 @@ const Main = styled.main`
   background: white;
   position: relative;
   z-index: 1;
-  height: 5000px;
+  //height: 5000px;
 `;
 
 const BelowCircle = styled.div`
-  margin-top: 400px;
+  //margin-top: 400px;
   position: relative;
 `;
 
@@ -24,7 +24,7 @@ const Home = () => {
       <HeaderEl />
       <Main>
         <BackgroundCircleEl animation={false} />
-        <TitleQoute>Stand out. Fit in.</TitleQoute>
+        {/* <TitleQoute>Stand out. Fit in.</TitleQoute> */}
         <BelowCircle>
           <LargeImageBlockEl />
           <AbsoluteTitle>My blogs</AbsoluteTitle>

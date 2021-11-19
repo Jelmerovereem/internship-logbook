@@ -60,7 +60,6 @@ const BlogPage = (props) => {
   return (
     <>
       <Link to="/">Home</Link>
-      <p>Blog id: {id}</p>
       {blogLoaded ? (
         <>
           {Object.keys(blogData).length > 0 && (

@@ -1,12 +1,17 @@
 import Fade from "react-reveal/Fade";
-import { blogContentStyle } from "./BlogContentStyle";
+import styled from "styled-components";
+
+const Content = styled.div`
+  width: 80%;
+  margin: 100px auto 0;
+`
 
 const BlogContent = (props) => {
   const { blogContent } = props;
 
   return (
     <Fade bottom>
-      <div style={blogContentStyle} dangerouslySetInnerHTML={{ __html: blogContent }} />
+      <Content dangerouslySetInnerHTML={{ __html: blogContent }} />
     </Fade>
   );
 };

@@ -3,6 +3,9 @@ import Particles from "react-tsparticles";
 import { Colors } from "../UI/Colors";
 import styled from "styled-components";
 import Logo from "../../assets/logo.js";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef, useEffect } from "react";
 
 const Header = styled.header`
   /*backgroundImage: url('https://images.unsplash.com/photo-1628112602161-b635c8a21378?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2000&q=80');*/
@@ -91,6 +94,18 @@ const LogoContainer = styled.div`
 `;
 
 const HeaderEl = () => {
+  gsap.registerPlugin(ScrollTrigger); 
+  //const logoEl = useRef(null);
+
+  useEffect(() => {
+    // ScrollTrigger.create({
+    //   markers: true,
+    //   start: "top top",
+    //   end: "bottom bottom",
+    //   trigger: logoEl.current
+    // })
+  })
+
   return (
     <>
       <Header>

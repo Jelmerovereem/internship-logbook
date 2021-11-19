@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import { get } from "../../modules/serverFetches";
 import Fade from "react-reveal/Fade";
 import { useHistory } from "react-router-dom";
-import { Loading, Dropdown, Colors } from "../UI";
+import { Loading, Dropdown, Colors, BlogContent } from "../UI";
 import convertDate from "../../modules/convertDate";
 import { containerStyle as defaultContainerStyle } from "./BlogsStyle";
+import BlogIcon from "../../assets/blog.js";
 import styled from "styled-components";
 
 const BlogsData = async () => {
@@ -15,7 +16,7 @@ const BlogsData = async () => {
 const Blogs = styled.div`
   width: 100%;
   margin: auto;
-  //padding-top: 400px;
+  padding-top: 20px;
   //transform: translateY(-100px);
   transition: width 2s;
 `;
@@ -23,7 +24,7 @@ const Blogs = styled.div`
 const BlogsContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 20px;
+  grid-gap: 40px;
   width: 80%;
   margin: 50px auto 0;
 `;
@@ -32,24 +33,48 @@ const BlogElement = styled.div`
   //justify-content: center;
   min-height: 300px;
   cursor: pointer;
+`;
+
+const ImageContainer = styled.div`
+  max-width: 100%;
+  height: 250px;
+  border-radius: 20px;
+  overflow: hidden;
 
   img {
     width: 100%;
-    height: 250px;
+    height: 100%;
     object-fit: cover;
-    border-radius: 20px;
+    transition: all 0.5s;
   }
-`;
+
+  &:hover {
+    img {
+      transform: scale(1.2);
+    }
+  }
+`
 
 const DateSpan = styled.span`
-  color: white;
+  color: grey;
   text-transform: capitalize;
   text-align: left;
   display: block;
+  font-size: 14px;
+  margin-top: 20px;
 `;
 
+const BlogTitle = styled.h2`
+  text-align: left;
+`
+
+const BlogIconContainer = styled.div`
+  display: inline-block;
+  width: 16%;
+`
+
 const Wrapper = styled.div`
-  background: ${Colors.codeLightGrey};
+  background: #eee;
 `;
 
 const BlogsEl = () => {
@@ -119,11 +144,13 @@ const BlogsEl = () => {
                           key={blog._id}
                         >
                           <BlogElement onClick={() => browseToBlog(blog._id)}>
-                            <img src={blog.headerImage} alt="blog header" />
+                            <ImageContainer>
+                              <img src={blog.headerImage} alt="blog header" />
+                            </ImageContainer>
                             <DateSpan>
-                              {convertDate(new Date(blog.date))}
+                              {convertDate(new Date(blog.date), "a-dd-mm-yy")}
                             </DateSpan>
-                            <h2>{blog.blogTitle}</h2>
+                            <BlogTitle>{blog.blogTitle}</BlogTitle>
                           </BlogElement>
                         </Fade>
                       );
@@ -132,6 +159,9 @@ const BlogsEl = () => {
                 </>
               ) : (
                 <div>
+                  <BlogIconContainer>
+                    <BlogIcon />
+                  </BlogIconContainer>
                   <p>Er zijn helaas nog geen posts</p>
                 </div>
               )}

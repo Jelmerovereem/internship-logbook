@@ -1,58 +1,65 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 
-const linkStyle = {
-    width: "100%",
-    height: "100%",
-    color: "white",
-    textDecoration: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center"
-}
+const LinkCard = styled(Link)`
+    width: 100%;
+    height: 100%;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
 
-const ArticleCard = (props) => {
+const TextContainer = styled.div`
+    transform: translateY(0);
+    transition: transform 0.5s;
+`
+
+const ArticleCard = styled.div`
+    width: 300px;
+    height: 500px;
+    background: linear-gradient(180deg, rgba(90,133,255,0.6) 0%, rgba(153,179,255,0.6) 100%), url(${props => props.headerImage});
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: white;
+    margin: 0 50px;
+    border-radius: 10px;
+    padding: 30px;
+    transition: transform 2s;
+    transform: scale(1);
+    text-align: center;
+
+    
+    &:hover {
+        ${TextContainer} {
+            transform: translateY(-15px);
+        }
+    }
+`
+
+const CardTitle = styled.p`
+    font-size: 20px;
+    font-weight: bolder;
+    text-align: center;
+`
+
+const ArticleCardEl = (props) => {
     const {href, blogData} = props;
     const { headerImage } = blogData;
-    const [isHovered, setIsHovered] = useState(false);
 
-    const cardStyle = {
-        width: "300px",
-        height: "500px",
-        background: `linear-gradient(180deg, rgba(90,133,255,0.6) 0%, rgba(153,179,255,0.6) 100%), url(${headerImage})`,
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        color: "white",
-        margin: "0 50px",
-        borderRadius: "10px",
-        padding: "30px",
-        transition: "transform 2s",
-        transform: "scale(1)"
-    }
-
-    const textContainerStyle = {
-        transform: "translateY(0)",
-        transition: "transform 0.5s",
-    }
-
-    const textStyle = {
-        fontSize: "20px",
-        fontWeight: "bolder",
-        textAlign: "center",
-    }
-
-    isHovered ? textContainerStyle.transform = "translateY(-15px)" : textContainerStyle.transform = "translateY(0)";
 
     return (
-        <div style={cardStyle} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} >
-            <Link to={href} style={linkStyle}>
-                <div style={textContainerStyle}>
-                    <p style={textStyle}>{blogData.blogTitle}</p>
+        <ArticleCard headerImage={headerImage}>
+            <LinkCard to={href}>
+                <TextContainer>
+                    <CardTitle>{blogData.blogTitle}</CardTitle>
                     <span>{blogData.viewersCount}</span>
-                </div>
-            </Link>
-        </div>
+                </TextContainer>
+            </LinkCard>
+        </ArticleCard>
     )
 }
 
-export default ArticleCard;
+export default ArticleCardEl;

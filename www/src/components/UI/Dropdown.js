@@ -14,7 +14,8 @@ const Dropdown = (props) => {
         borderColor: "lightgrey",
         transition: "border-color 0.3s",
         cursor: "pointer",
-        marginTop: "10px"
+        margin: "0 auto",
+        display: "block",
     }
 
     isFocused ? dropdownStyle.borderColor = Colors.primaryBlue : isHovered ? dropdownStyle.borderColor = Colors.primaryBlue : dropdownStyle.borderColor = "lightgrey"
