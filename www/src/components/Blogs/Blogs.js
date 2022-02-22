@@ -17,6 +17,7 @@ const Blogs = styled.div`
   width: 100%;
   margin: auto;
   padding-top: 20px;
+  min-height: 600px;
   //transform: translateY(-100px);
   transition: width 2s;
 `;
@@ -53,7 +54,7 @@ const ImageContainer = styled.div`
       transform: scale(1.2);
     }
   }
-`
+`;
 
 const DateSpan = styled.span`
   color: grey;
@@ -66,12 +67,18 @@ const DateSpan = styled.span`
 
 const BlogTitle = styled.h2`
   text-align: left;
-`
+`;
+
+const EmptyStateContainer = styled.div`
+  width: 70%;
+  margin: 100px auto;
+  text-align: center;
+`;
 
 const BlogIconContainer = styled.div`
   display: inline-block;
-  width: 16%;
-`
+  width: 6%;
+`;
 
 const Wrapper = styled.div`
   background: #eee;
@@ -158,12 +165,12 @@ const BlogsEl = () => {
                   </BlogsContainer>
                 </>
               ) : (
-                <div>
+                <EmptyStateContainer>
                   <BlogIconContainer>
                     <BlogIcon />
                   </BlogIconContainer>
                   <p>Er zijn helaas nog geen posts</p>
-                </div>
+                </EmptyStateContainer>
               )}
             </Blogs>
           </Fade>

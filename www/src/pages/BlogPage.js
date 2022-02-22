@@ -10,10 +10,11 @@ import {
 } from "../components/UI";
 import { BlogContent } from "../components/UI";
 import { useHistory } from "react-router";
+import styled from "styled-components";
 
 const getBlog = async (id) => {
   const response = await get({ url: `/blogPost/${id}` });
-  console.log(response)
+  console.log(response);
   return response;
 };
 
@@ -21,6 +22,16 @@ const getAllBlogs = async () => {
   const response = await get({ url: "/blogs" });
   return response;
 };
+
+const PageWrapper = styled.div`
+  position: relative;
+`;
+
+const BackBtn = styled(Link)`
+  position: absolute;
+  top: 40px;
+  left: 20px;
+`
 
 const BlogPage = (props) => {
   let history = useHistory();
@@ -58,8 +69,8 @@ const BlogPage = (props) => {
   }, []);
 
   return (
-    <>
-      <Link to="/">Home</Link>
+    <PageWrapper>
+      <BackBtn to="/"> &lt; </BackBtn>
       {blogLoaded ? (
         <>
           {Object.keys(blogData).length > 0 && (
@@ -93,7 +104,7 @@ const BlogPage = (props) => {
       ) : (
         <Loading />
       )}
-    </>
+    </PageWrapper>
   );
 };
 

@@ -66,7 +66,7 @@ const BackgroundCircleEl = (props) => {
   const textRef = useRef(null);
   const spanRef = useRef(null);
   const containerRef = useRef(null);
-  
+
   // const { ref, inView, entry } = useInView({
   //   /* Optional options */
   //   threshold: 0.6,
@@ -75,46 +75,55 @@ const BackgroundCircleEl = (props) => {
   useEffect(() => {
     const spanAnimation = gsap.timeline({
       //paused: true,
-    })
+    });
 
     const textTimeline = gsap.timeline({
       paused: true,
       onComplete: () => spanAnimation.play(),
     });
 
-    textTimeline.fromTo(textRef.current, {
-      clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
-    }, {
-      clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-    })
+    textTimeline.fromTo(
+      textRef.current,
+      {
+        clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+      },
+      {
+        clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+      }
+    );
 
-    textTimeline.fromTo(spanRef.current, {
-      color: Colors.primaryDark,
-      clipPath: "polygon(0 0, 0 0, 0 100%, 0% 100%)",
-    }, {
-      color: Colors.primaryDark,
-      background: "transparent",
-      clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-    }, ">+=1")
+    textTimeline.fromTo(
+      spanRef.current,
+      {
+        color: Colors.primaryDark,
+        clipPath: "polygon(0 0, 0 0, 0 100%, 0% 100%)",
+      },
+      {
+        color: Colors.primaryDark,
+        background: "transparent",
+        clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+      },
+      ">+=1"
+    );
 
     textTimeline.to(spanRef.current, {
       background: Colors.primaryDark,
       color: "white",
-    })
+    });
 
     //textTimeline.duration(3);
 
     ScrollTrigger.create({
-      markers: false,
+      markers: true,
       start: "center center",
       trigger: textRef.current,
-      onToggle: self => {
-        if (self.isActive) {
+      onToggle: ({ isActive }) => {
+        if (isActive) {
           textTimeline.play();
         }
       },
-    })
-  })
+    });
+  });
 
   const Container = styled.div`
     pointer-events: none;
@@ -182,8 +191,9 @@ const BackgroundCircleEl = (props) => {
         <Inner />
       </Container>
       <Text ref={textRef} className={!animation ? "showText" : ""}>
-        Welcome to <br /> my <AnimationSpan ref={spanRef}>internship</AnimationSpan> blog at{" "}
-        <br /> code d'azur!
+        Welcome to <br /> my{" "}
+        <AnimationSpan ref={spanRef}>internship</AnimationSpan> blog at <br />{" "}
+        code d'azur!
       </Text>
     </Wrapper>
   );
